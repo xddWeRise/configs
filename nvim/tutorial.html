@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neovim 단축키 치트시트</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .page-break { page-break-before: always; }
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', Arial, sans-serif;
+            line-height: 1.4;
+            color: #333;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            background: white;
+        }
+        
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2563eb;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #1e40af;
+            font-size: 28px;
+            margin: 0;
+            font-weight: bold;
+        }
+        
+        .header p {
+            color: #6b7280;
+            font-size: 14px;
+            margin: 10px 0 0 0;
+        }
+        
+        .section {
+            margin-bottom: 25px;
+            break-inside: avoid;
+        }
+        
+        .section h2 {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 12px 16px;
+            margin: 0 0 15px 0;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+        }
+        
+        .shortcut-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .shortcut-item {
+            display: contents;
+        }
+        
+        .shortcut-key {
+            background: #f3f4f6;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-weight: bold;
+            font-size: 13px;
+            border: 1px solid #d1d5db;
+            color: #374151;
+        }
+        
+        .shortcut-desc {
+            padding: 8px 12px;
+            background: #fefefe;
+            border-radius: 6px;
+            border: 1px solid #e5e7eb;
+            font-size: 13px;
+        }
+        
+        .leader-note {
+            background: #fef3c7;
+            padding: 12px;
+            border-radius: 8px;
+            border-left: 4px solid #f59e0b;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        
+        .mode-indicator {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .mode-normal { background: #059669; }
+        .mode-insert { background: #dc2626; }
+        .mode-visual { background: #7c3aed; }
+        .mode-command { background: #ea580c; }
+        
+        .subsection {
+            margin-bottom: 20px;
+        }
+        
+        .subsection h3 {
+            color: #4b5563;
+            font-size: 16px;
+            margin: 0 0 10px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .print-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+        
+        .print-button:hover {
+            background: #1d4ed8;
+        }
+        
+        @media print {
+            .print-button { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">PDF로 저장</button>
+    
+    <div class="header">
+        <h1>🚀 Neovim 단축키 치트시트</h1>
+        <p>현재 설정 기준 - Leader Key: <strong>Space</strong></p>
+    </div>
+    
+    <div class="leader-note">
+        <strong>💡 팁:</strong> <code>&lt;leader&gt;</code>는 <strong>Space키</strong>입니다. 예: <code>&lt;leader&gt;w</code> = <code>Space + w</code>
+    </div>
+
+    <div class="two-column">
+        <div>
+            <div class="section">
+                <h2>📁 파일 관리</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;w</div>
+                        <div class="shortcut-desc">파일 저장 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;q</div>
+                        <div class="shortcut-desc">종료 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;e</div>
+                        <div class="shortcut-desc">파일 탐색기 토글 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔍 검색 & 탐색 (Telescope)</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;ff</div>
+                        <div class="shortcut-desc">파일 검색 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;fg</div>
+                        <div class="shortcut-desc">텍스트 검색 (grep) <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;fb</div>
+                        <div class="shortcut-desc">버퍼 목록 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📄 버퍼 관리</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Tab</div>
+                        <div class="shortcut-desc">다음 버퍼 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Shift+Tab</div>
+                        <div class="shortcut-desc">이전 버퍼 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🪟 윈도우 분할</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+h</div>
+                        <div class="shortcut-desc">왼쪽 윈도우로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+j</div>
+                        <div class="shortcut-desc">아래 윈도우로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+k</div>
+                        <div class="shortcut-desc">위 윈도우로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+l</div>
+                        <div class="shortcut-desc">오른쪽 윈도우로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔧 LSP (코드 지능)</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gd</div>
+                        <div class="shortcut-desc">정의로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gr</div>
+                        <div class="shortcut-desc">참조 찾기 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">K</div>
+                        <div class="shortcut-desc">문서 보기 (hover) <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;rn</div>
+                        <div class="shortcut-desc">이름 바꾸기 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;ca</div>
+                        <div class="shortcut-desc">코드 액션 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;f</div>
+                        <div class="shortcut-desc">코드 포맷팅 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="section">
+                <h2>⚠️ 진단 & 오류</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">[d</div>
+                        <div class="shortcut-desc">이전 진단으로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">]d</div>
+                        <div class="shortcut-desc">다음 진단으로 이동 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;d</div>
+                        <div class="shortcut-desc">진단 상세 보기 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;xx</div>
+                        <div class="shortcut-desc">Trouble 진단 창 토글 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>✏️ 자동완성</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Tab</div>
+                        <div class="shortcut-desc">다음 항목 선택 <span class="mode-indicator mode-insert">I</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Shift+Tab</div>
+                        <div class="shortcut-desc">이전 항목 선택 <span class="mode-indicator mode-insert">I</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Enter</div>
+                        <div class="shortcut-desc">선택한 항목 확인 <span class="mode-indicator mode-insert">I</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+Space</div>
+                        <div class="shortcut-desc">자동완성 트리거 <span class="mode-indicator mode-insert">I</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+e</div>
+                        <div class="shortcut-desc">자동완성 취소 <span class="mode-indicator mode-insert">I</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔍 기본 검색</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;nh</div>
+                        <div class="shortcut-desc">검색 하이라이트 끄기 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">/</div>
+                        <div class="shortcut-desc">앞으로 검색 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">?</div>
+                        <div class="shortcut-desc">뒤로 검색 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">n</div>
+                        <div class="shortcut-desc">다음 검색 결과 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">N</div>
+                        <div class="shortcut-desc">이전 검색 결과 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💬 주석 (Comment.nvim)</h2>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gcc</div>
+                        <div class="shortcut-desc">현재 줄 주석 토글 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gc</div>
+                        <div class="shortcut-desc">선택 영역 주석 토글 <span class="mode-indicator mode-visual">V</span></div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gbc</div>
+                        <div class="shortcut-desc">블록 주석 토글 <span class="mode-indicator mode-normal">N</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+        <h2>📖 기본 Vim 이동 & 편집 (필수)</h2>
+        
+        <div class="two-column">
+            <div class="subsection">
+                <h3>이동</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">h, j, k, l</div>
+                        <div class="shortcut-desc">좌, 하, 상, 우 이동</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">w</div>
+                        <div class="shortcut-desc">다음 단어 시작</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">b</div>
+                        <div class="shortcut-desc">이전 단어 시작</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">e</div>
+                        <div class="shortcut-desc">단어 끝</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">0</div>
+                        <div class="shortcut-desc">줄 시작</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">$</div>
+                        <div class="shortcut-desc">줄 끝</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">gg</div>
+                        <div class="shortcut-desc">파일 시작</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">G</div>
+                        <div class="shortcut-desc">파일 끝</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>모드 변경</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">i</div>
+                        <div class="shortcut-desc">커서 위치에서 입력</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">a</div>
+                        <div class="shortcut-desc">커서 다음에서 입력</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">o</div>
+                        <div class="shortcut-desc">아래 새 줄에서 입력</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">O</div>
+                        <div class="shortcut-desc">위 새 줄에서 입력</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Esc</div>
+                        <div class="shortcut-desc">노멀 모드로 복귀</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">v</div>
+                        <div class="shortcut-desc">비주얼 모드</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">V</div>
+                        <div class="shortcut-desc">라인 비주얼 모드</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column">
+            <div class="subsection">
+                <h3>편집</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">x</div>
+                        <div class="shortcut-desc">문자 삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">dd</div>
+                        <div class="shortcut-desc">줄 삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">yy</div>
+                        <div class="shortcut-desc">줄 복사</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">p</div>
+                        <div class="shortcut-desc">붙여넣기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">u</div>
+                        <div class="shortcut-desc">실행 취소</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+r</div>
+                        <div class="shortcut-desc">다시 실행</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">r</div>
+                        <div class="shortcut-desc">문자 교체</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>조합 명령어</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">dw</div>
+                        <div class="shortcut-desc">단어 삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">d$</div>
+                        <div class="shortcut-desc">줄 끝까지 삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">yw</div>
+                        <div class="shortcut-desc">단어 복사</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">cw</div>
+                        <div class="shortcut-desc">단어 변경</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">3dd</div>
+                        <div class="shortcut-desc">3줄 삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">5j</div>
+                        <div class="shortcut-desc">5줄 아래로</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🎯 모드별 단축키 요약</h2>
+        <div class="two-column">
+            <div class="subsection">
+                <h3><span class="mode-indicator mode-normal">Normal Mode</span></h3>
+                <p>기본 모드. 이동, 명령어 실행</p>
+            </div>
+            <div class="subsection">
+                <h3><span class="mode-indicator mode-insert">Insert Mode</span></h3>
+                <p>텍스트 입력 모드. 자동완성 사용</p>
+            </div>
+            <div class="subsection">
+                <h3><span class="mode-indicator mode-visual">Visual Mode</span></h3>
+                <p>텍스트 선택 모드. 블록 작업</p>
+            </div>
+            <div class="subsection">
+                <h3><span class="mode-indicator mode-command">Command Mode</span></h3>
+                <p>명령어 입력 모드. :로 시작</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="page-break"></div>
+
+    <div class="section">
+        <h2>🌳 NvimTree (파일 탐색기) 기능</h2>
+        <div class="leader-note">
+            <strong>📂 사용법:</strong> <code>&lt;leader&gt;e</code>로 열고, 다음 키들을 사용하세요
+        </div>
+        
+        <div class="two-column">
+            <div class="subsection">
+                <h3>파일/폴더 조작</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Enter / o</div>
+                        <div class="shortcut-desc">파일 열기 / 폴더 펼치기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">a</div>
+                        <div class="shortcut-desc">새 파일/폴더 생성</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">d</div>
+                        <div class="shortcut-desc">삭제</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">r</div>
+                        <div class="shortcut-desc">이름 바꾸기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">x</div>
+                        <div class="shortcut-desc">잘라내기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">c</div>
+                        <div class="shortcut-desc">복사</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">p</div>
+                        <div class="shortcut-desc">붙여넣기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">y</div>
+                        <div class="shortcut-desc">파일명 복사</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>탐색 & 보기</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">H</div>
+                        <div class="shortcut-desc">숨김 파일 토글</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">R</div>
+                        <div class="shortcut-desc">새로고침</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">P</div>
+                        <div class="shortcut-desc">부모 디렉토리로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">K</div>
+                        <div class="shortcut-desc">첫 번째 자식으로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">J</div>
+                        <div class="shortcut-desc">마지막 자식으로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+k</div>
+                        <div class="shortcut-desc">파일 정보 보기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">-</div>
+                        <div class="shortcut-desc">상위 디렉토리로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">q</div>
+                        <div class="shortcut-desc">트리 닫기</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>고급 기능</h3>
+            <div class="shortcut-grid">
+                <div class="shortcut-item">
+                    <div class="shortcut-key">s</div>
+                    <div class="shortcut-desc">시스템 기본 앱으로 열기</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">f</div>
+                    <div class="shortcut-desc">파일 필터링</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">F</div>
+                    <div class="shortcut-desc">필터 초기화</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+]</div>
+                    <div class="shortcut-desc">디렉토리를 루트로 설정</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">W</div>
+                    <div class="shortcut-desc">폴더 전체 닫기</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">E</div>
+                    <div class="shortcut-desc">폴더 전체 펼치기</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔍 Telescope 상세 기능</h2>
+        <div class="leader-note">
+            <strong>🎯 팁:</strong> Telescope 창에서 사용할 수 있는 추가 단축키들
+        </div>
+        
+        <div class="two-column">
+            <div class="subsection">
+                <h3>기본 탐색</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+n / ↓</div>
+                        <div class="shortcut-desc">다음 항목</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+p / ↑</div>
+                        <div class="shortcut-desc">이전 항목</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Enter</div>
+                        <div class="shortcut-desc">선택한 파일 열기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Esc</div>
+                        <div class="shortcut-desc">Telescope 닫기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+c</div>
+                        <div class="shortcut-desc">Telescope 닫기</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>고급 열기</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+x</div>
+                        <div class="shortcut-desc">수평 분할로 열기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+v</div>
+                        <div class="shortcut-desc">수직 분할로 열기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+t</div>
+                        <div class="shortcut-desc">새 탭으로 열기</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Tab</div>
+                        <div class="shortcut-desc">선택 모드 토글</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">Ctrl+q</div>
+                        <div class="shortcut-desc">퀵픽스 리스트로 보내기</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h3>검색 제어</h3>
+            <div class="shortcut-grid">
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+u</div>
+                    <div class="shortcut-desc">프리뷰 스크롤 업</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+d</div>
+                    <div class="shortcut-desc">프리뷰 스크롤 다운</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+f</div>
+                    <div class="shortcut-desc">결과 페이지 다음</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+b</div>
+                    <div class="shortcut-desc">결과 페이지 이전</div>
+                </div>
+                <div class="shortcut-item">
+                    <div class="shortcut-key">Ctrl+r</div>
+                    <div class="shortcut-desc">히스토리 모드</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🧩 nvim-autopairs 기능</h2>
+        <div class="leader-note">
+            <strong>🔧 자동 기능:</strong> 입력 시 자동으로 작동하는 기능들
+        </div>
+        
+        <div class="shortcut-grid">
+            <div class="shortcut-item">
+                <div class="shortcut-key">( 입력</div>
+                <div class="shortcut-desc">자동으로 ) 추가</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">[ 입력</div>
+                <div class="shortcut-desc">자동으로 ] 추가</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">{ 입력</div>
+                <div class="shortcut-desc">자동으로 } 추가</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">" 입력</div>
+                <div class="shortcut-desc">자동으로 " 추가</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">' 입력</div>
+                <div class="shortcut-desc">자동으로 ' 추가</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">Enter</div>
+                <div class="shortcut-desc">괄호 사이에서 자동 들여쓰기</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">Backspace</div>
+                <div class="shortcut-desc">빈 괄호 쌍 자동 삭제</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🌈 Treesitter 기능</h2>
+        <div class="leader-note">
+            <strong>✨ 자동 기능:</strong> 구문 분석 기반 스마트 기능들
+        </div>
+        
+        <div class="shortcut-grid">
+            <div class="shortcut-item">
+                <div class="shortcut-key">자동</div>
+                <div class="shortcut-desc">정확한 구문 하이라이팅</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">자동</div>
+                <div class="shortcut-desc">스마트 들여쓰기</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">자동</div>
+                <div class="shortcut-desc">코드 폴딩 (zf, zo, zc)</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">자동</div>
+                <div class="shortcut-desc">텍스트 오브젝트 인식</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔀 GitSigns 기능</h2>
+        <div class="two-column">
+            <div class="subsection">
+                <h3>기본 Git 표시</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">자동</div>
+                        <div class="shortcut-desc">사이드바에 변경사항 표시</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">자동</div>
+                        <div class="shortcut-desc">추가된 줄 (초록색)</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">자동</div>
+                        <div class="shortcut-desc">수정된 줄 (노란색)</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">자동</div>
+                        <div class="shortcut-desc">삭제된 줄 (빨간색)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3>추가 Git 명령어</h3>
+                <div class="shortcut-grid">
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">]c</div>
+                        <div class="shortcut-desc">다음 변경사항으로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">[c</div>
+                        <div class="shortcut-desc">이전 변경사항으로</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;hs</div>
+                        <div class="shortcut-desc">Hunk 스테이지</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;hr</div>
+                        <div class="shortcut-desc">Hunk 리셋</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;hp</div>
+                        <div class="shortcut-desc">Hunk 프리뷰</div>
+                    </div>
+                    <div class="shortcut-item">
+                        <div class="shortcut-key">&lt;leader&gt;hb</div>
+                        <div class="shortcut-desc">Blame 라인 보기</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🏗️ Mason LSP 관리</h2>
+        <div class="shortcut-grid">
+            <div class="shortcut-item">
+                <div class="shortcut-key">:Mason</div>
+                <div class="shortcut-desc">Mason UI 열기</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">:MasonInstall</div>
+                <div class="shortcut-desc">LSP 서버 설치</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">:MasonUninstall</div>
+                <div class="shortcut-desc">LSP 서버 제거</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">:MasonUpdate</div>
+                <div class="shortcut-desc">설치된 도구 업데이트</div>
+            </div>
+        </div>
+        
+        <div class="leader-note">
+            <strong>📦 Mason UI 내부 단축키:</strong> i (설치), u (제거), U (업데이트), X (제거), g (로그)
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>🔥 추천 워크플로우</h2>
+        <div class="shortcut-grid">
+            <div class="shortcut-item">
+                <div class="shortcut-key">1.</div>
+                <div class="shortcut-desc"><code>&lt;leader&gt;e</code>로 프로젝트 구조 파악</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">2.</div>
+                <div class="shortcut-desc"><code>&lt;leader&gt;ff</code>로 빠른 파일 열기</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">3.</div>
+                <div class="shortcut-desc"><code>&lt;leader&gt;fg</code>로 프로젝트 전체 텍스트 검색</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">4.</div>
+                <div class="shortcut-desc"><code>gd</code>, <code>gr</code>로 코드 탐색</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">5.</div>
+                <div class="shortcut-desc"><code>gcc</code>로 주석, <code>&lt;leader&gt;rn</code>으로 리팩토링</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">6.</div>
+                <div class="shortcut-desc"><code>[c</code>, <code>]c</code>로 Git 변경사항 확인</div>
+            </div>
+            <div class="shortcut-item">
+                <div class="shortcut-key">7.</div>
+                <div class="shortcut-desc"><code>&lt;leader&gt;f</code>로 포맷팅 후 <code>&lt;leader&gt;w</code>로 저장</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 프린트할 때 배경색도 포함되도록 설정
+        if (window.matchMedia) {
+            const mediaQueryList = window.matchMedia('print');
+            mediaQueryList.addListener(function(mql) {
+                if (mql.matches) {
+                    document.body.style.webkitPrintColorAdjust = 'exact';
+                    document.body.style.colorAdjust = 'exact';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
